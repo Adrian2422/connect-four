@@ -9,9 +9,10 @@ public class Main {
 
         Board board = new Board();
         InputHandlers iHandler = new InputHandlers();
+        Enemy enemy = new Enemy();
         Scanner scan = new Scanner(System.in);
         String choice;
-        String playerColor;
+        String playerColor = ConsoleColors.RED;
 
         System.out.println("Welcome to the match four game!\n");
         System.out.println("Your task is to arrange four or more disks vertically, horizontally or diagonally.\n");
@@ -21,6 +22,7 @@ public class Main {
 
         if(choice.equals("y") || choice.equals("Y")){
             playerColor = iHandler.getColor();
+            enemy.setColor(playerColor);
         }
 
         board.printBoard();
