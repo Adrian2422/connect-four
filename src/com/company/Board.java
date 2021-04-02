@@ -8,9 +8,8 @@ public class Board {
     public String fieldColor = ConsoleColors.RESET;
 
     public void printBoard(String playerColor, String enemyColor){
-        System.out.print(ConsoleColors.YELLOW + "  1 2 3 4 5 6 7 8 9" + ConsoleColors.RESET + "\n");
+        System.out.print(ConsoleColors.YELLOW + "1 2 3 4 5 6 7 8 9" + ConsoleColors.RESET + "\n");
         for (int i = 0; i < board.length; i++){
-            System.out.print(ConsoleColors.YELLOW + (i+1) + ConsoleColors.RESET + " ");
             for (int j = 0; j < board[i].length; j++){
                 if(board[i][j] == 1){
                     fieldColor = playerColor;
@@ -24,31 +23,48 @@ public class Board {
         }
     }
 
-    public boolean playerMove(int x, int y){
-        if(x > board.length || y > board[x-1].length){
-            System.out.println("You cannot place it there! (out of board)");
-            return false;
-        } else if(board[x-1][y-1] == 0){
-            board[x-1][y-1] = playerMark;
-            System.out.println("Enemy's turn");
-            return true;
-        } else {
+    public boolean playerMove(int x){
+        if(!moveMarkDown(x, "player")){
             System.out.println("You cannot place it there!");
             return false;
+        } else {
+            System.out.println("Enemy's turn");
+            return true;
         }
     }
 
-    public boolean enemyMove(int x, int y){
-        if(x > board.length || y > board[x-1].length){
-            System.out.println("Enemy cannot place it there! (out of board)");
+    public boolean enemyMove(int x){
+        if(!moveMarkDown(x, "enemy")){
+            System.out.println("Enemy cannot place it there!");
             return false;
-        } else if(board[x-1][y-1] == 0){
-            board[x-1][y-1] = enemyMark;
+        } else {
             System.out.println("Your turn");
             return true;
-        } else {
-            System.out.println("Enemy cannot place it there! (this field is already taken)");
-            return false;
         }
+    }
+    private boolean moveMarkDown(int x, String player){
+        int actualField;
+        int nextField;
+        int mark = player.equals("player") ? 1 : 2;
+        --x;
+        for (int i = 0; i < board.length; i++) {
+            if(x >= board[i].length || x < 0){
+                return false;
+            }
+            actualField = board[i][x];
+            if(i+1 < board.length){
+                nextField = board[i+1][x];
+                if(actualField == 0 && nextField != 0){
+                    board[i][x] = mark;
+                    return true;
+                }
+            } else {
+                if(actualField == 0){
+                    board[i][x] = mark;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

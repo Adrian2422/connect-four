@@ -36,11 +36,11 @@ public class Main {
         do{
             do{
                 board.printBoard(player.color, enemy.color);
-                enemyMove = board.enemyMove(scan.nextInt(), scan.nextInt());
+                enemyMove = board.enemyMove(scan.nextInt());
             } while (!enemyMove);
             do{
                 board.printBoard(player.color, enemy.color);
-                playerMove = board.playerMove(scan.nextInt(), scan.nextInt());
+                playerMove = board.playerMove(scan.nextInt());
             } while(!playerMove);
         } while(gameOver != true);
     }
