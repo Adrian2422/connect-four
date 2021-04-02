@@ -25,7 +25,10 @@ public class Board {
     }
 
     public boolean playerMove(int x, int y){
-        if(board[x-1][y-1] == 0){
+        if(x > board.length || y > board[x-1].length){
+            System.out.println("You cannot place it there! (out of board)");
+            return false;
+        } else if(board[x-1][y-1] == 0){
             board[x-1][y-1] = playerMark;
             System.out.println("Enemy's turn");
             return true;
@@ -36,12 +39,15 @@ public class Board {
     }
 
     public boolean enemyMove(int x, int y){
-        if(board[x-1][y-1] == 0){
+        if(x > board.length || y > board[x-1].length){
+            System.out.println("Enemy cannot place it there! (out of board)");
+            return false;
+        } else if(board[x-1][y-1] == 0){
             board[x-1][y-1] = enemyMark;
             System.out.println("Your turn");
             return true;
         } else {
-            System.out.println("Enemy cannot place it there!");
+            System.out.println("Enemy cannot place it there! (this field is already taken)");
             return false;
         }
     }
