@@ -13,6 +13,7 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         InputHandlers iHandler = new InputHandlers();
         String choice;
+        int position;
         boolean gameOver = false;
         boolean playerMove;
         boolean enemyMove;
@@ -33,14 +34,26 @@ public class Main {
         System.out.println("Your enemy's color:" + enemy.color + " ###" + ConsoleColors.RESET);
         System.out.println("Good luck!\n");
 
+        board.printBoard(player.color, enemy.color);
+
         do{
             do{
+                while(!scan.hasNextInt()){
+                    System.out.println("That's not a number!");
+                    scan.next();
+                }
+                position = scan.nextInt();
+                enemyMove = board.enemyMove(position);
                 board.printBoard(player.color, enemy.color);
-                enemyMove = board.enemyMove(scan.nextInt());
             } while (!enemyMove);
             do{
+                while(!scan.hasNextInt()){
+                    System.out.println("That's not a number!");
+                    scan.next();
+                }
+                position = scan.nextInt();
+                playerMove = board.playerMove(position);
                 board.printBoard(player.color, enemy.color);
-                playerMove = board.playerMove(scan.nextInt());
             } while(!playerMove);
         } while(gameOver != true);
     }

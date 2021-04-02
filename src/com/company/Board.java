@@ -24,20 +24,22 @@ public class Board {
     }
 
     public boolean playerMove(int x){
-        if(!moveMarkDown(x, "player")){
+        if(moveMarkDown(x, "player")){
             System.out.println("You cannot place it there!");
             return false;
         } else {
+            Utils.cls();
             System.out.println("Enemy's turn");
             return true;
         }
     }
 
     public boolean enemyMove(int x){
-        if(!moveMarkDown(x, "enemy")){
+        if(moveMarkDown(x, "enemy")){
             System.out.println("Enemy cannot place it there!");
             return false;
         } else {
+            Utils.cls();
             System.out.println("Your turn");
             return true;
         }
@@ -49,22 +51,22 @@ public class Board {
         --x;
         for (int i = 0; i < board.length; i++) {
             if(x >= board[i].length || x < 0){
-                return false;
+                return true;
             }
             actualField = board[i][x];
             if(i+1 < board.length){
                 nextField = board[i+1][x];
                 if(actualField == 0 && nextField != 0){
                     board[i][x] = mark;
-                    return true;
+                    return false;
                 }
             } else {
                 if(actualField == 0){
                     board[i][x] = mark;
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 }
