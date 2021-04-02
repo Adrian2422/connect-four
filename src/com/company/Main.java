@@ -8,11 +8,15 @@ public class Main {
     public static void main(String[] args) {
 
         Board board = new Board();
-        InputHandlers iHandler = new InputHandlers();
         Enemy enemy = new Enemy();
+        Player player = new Player();
         Scanner scan = new Scanner(System.in);
+        InputHandlers iHandler = new InputHandlers();
         String choice;
-        String playerColor = ConsoleColors.RED;
+        boolean gameOver = false;
+        boolean playerMove;
+        boolean enemyMove;
+
 
         System.out.println("Welcome to the match four game!\n");
         System.out.println("Your task is to arrange four or more disks vertically, horizontally or diagonally.\n");
@@ -21,10 +25,23 @@ public class Main {
         choice = scan.next();
 
         if(choice.equals("y") || choice.equals("Y")){
-            playerColor = iHandler.getColor();
-            enemy.setColor(playerColor);
+            player.color = iHandler.getColor();
+            enemy.setColor(player.color);
         }
 
-        board.printBoard();
+        System.out.println(ConsoleColors.RESET + "Your color:" + player.color + " ###" + ConsoleColors.RESET);
+        System.out.println("Your enemy's color:" + enemy.color + " ###" + ConsoleColors.RESET);
+        System.out.println("Good luck!\n");
+
+        do{
+            do{
+                board.printBoard(player.color, enemy.color);
+                enemyMove = board.enemyMove(scan.nextInt(), scan.nextInt());
+            } while (!enemyMove);
+            do{
+                board.printBoard(player.color, enemy.color);
+                playerMove = board.playerMove(scan.nextInt(), scan.nextInt());
+            } while(!playerMove);
+        } while(gameOver != true);
     }
 }

@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Enemy {
     public String color = ConsoleColors.BLUE;
+    public static int mark = 2;
     ConsoleColors consoleColors = new ConsoleColors();
 
     public void setColor(String playerColor) {
