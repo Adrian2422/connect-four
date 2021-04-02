@@ -78,6 +78,7 @@ public class ConsoleColors {
     public static final String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
 
     Map<Integer, String> regularColors = new HashMap<Integer, String>();
+    Map<Integer, String> backgroundBrightColors = new HashMap<Integer, String>();
 
     public ConsoleColors(){
         this.regularColors.put(1, RED);
@@ -86,6 +87,13 @@ public class ConsoleColors {
         this.regularColors.put(4, PURPLE);
         this.regularColors.put(5, WHITE);
         this.regularColors.put(6, CYAN);
+
+        this.backgroundBrightColors.put(1, RED_BACKGROUND_BRIGHT);
+        this.backgroundBrightColors.put(2, BLUE_BACKGROUND_BRIGHT);
+        this.backgroundBrightColors.put(3, GREEN_BACKGROUND_BRIGHT);
+        this.backgroundBrightColors.put(4, PURPLE_BACKGROUND_BRIGHT);
+        this.backgroundBrightColors.put(5, WHITE_BACKGROUND_BRIGHT);
+        this.backgroundBrightColors.put(6, CYAN_BACKGROUND_BRIGHT);
     }
 
 }

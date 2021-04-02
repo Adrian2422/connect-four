@@ -12,22 +12,28 @@ public class Main {
         Player player = new Player();
         Scanner scan = new Scanner(System.in);
         InputHandlers iHandler = new InputHandlers();
-        String choice;
+        char choice;
         int position;
+        String winner;
         boolean gameOver = false;
-        boolean playerMove;
-        boolean enemyMove;
+        boolean playerMove = false;
+        boolean enemyMove = false;
 
 
         System.out.println("Welcome to the match four game!\n");
         System.out.println("Your task is to arrange four or more disks vertically, horizontally or diagonally.\n");
         System.out.println("Do you want to choose your color? (Default"  + ConsoleColors.RED + " red" + ConsoleColors.RESET + ", [y/n])\n");
 
-        choice = scan.next();
+        choice = scan.next().charAt(0);
 
-        if(choice.equals("y") || choice.equals("Y")){
-            player.color = iHandler.getColor();
-            enemy.setColor(player.color);
+        switch (choice){
+            case 'y':
+            case 'Y':
+                player.color = iHandler.getColor();
+                enemy.setColor(player.color);
+                break;
+            default:
+                break;
         }
 
         System.out.println(ConsoleColors.RESET + "Your color:" + player.color + " ###" + ConsoleColors.RESET);
@@ -36,25 +42,39 @@ public class Main {
 
         board.printBoard(player.color, enemy.color);
 
-        do{
-            do{
+        while(true){
+            while (!enemyMove){
                 while(!scan.hasNextInt()){
                     System.out.println("That's not a number!");
                     scan.next();
                 }
                 position = scan.nextInt();
                 enemyMove = board.enemyMove(position);
-                board.printBoard(player.color, enemy.color);
-            } while (!enemyMove);
-            do{
+            }
+            board.printBoard(player.color, enemy.color);
+            gameOver = board.areFourConnected(Enemy.mark);
+            if(gameOver){
+                winner = "Enemy";
+                break;
+            }
+            while(!playerMove){
                 while(!scan.hasNextInt()){
                     System.out.println("That's not a number!");
                     scan.next();
                 }
                 position = scan.nextInt();
                 playerMove = board.playerMove(position);
-                board.printBoard(player.color, enemy.color);
-            } while(!playerMove);
-        } while(gameOver != true);
+            }
+            board.printBoard(player.color, enemy.color);
+            gameOver = board.areFourConnected(Player.mark);
+            enemyMove = false;
+            playerMove = false;
+            if(gameOver){
+                winner = "Player";
+                break;
+            }
+        }
+        System.out.printf("%1s wins!", winner);
+
     }
 }

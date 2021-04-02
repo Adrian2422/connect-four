@@ -16,7 +16,7 @@ public class Board {
                 } else if (board[i][j] == 2) {
                     fieldColor = enemyColor;
                 }
-                System.out.printf(fieldColor + "%1s " + ConsoleColors.RESET, board[i][j]);
+                System.out.printf(fieldColor + "%1s" + ConsoleColors.RESET + " ", board[i][j]);
                 fieldColor = ConsoleColors.RESET;
             }
             System.out.print("\n");
@@ -68,5 +68,39 @@ public class Board {
             }
         }
         return true;
+    }
+
+    public boolean areFourConnected(int player){
+        // horizontalCheck
+        for (int i = 0; i < board.length-3; i++){
+            for (int j = 0; j < board[i].length - 1; j++){
+                if (this.board[j][i] == player && this.board[j][i+1] == player && this.board[j][i+2] == player && this.board[j][i+3] == player){
+                    return true;
+                }
+            }
+        }
+        // vertical check
+        for (int i = 0; i < board.length - 1; i++) {
+            for (int j = 0; j < board[i].length - 4; j++){
+                if (this.board[j][i] == player && this.board[j+1][i] == player && this.board[j+2][i] == player && this.board[j+3][i] == player){
+                    return true;
+                }
+            }
+        }
+        // diagonal desc check
+        for (int i = 3; i<board.length; i++){
+            for (int j = 3; j<board[i].length; j++){
+                if (this.board[i][j] == player && this.board[i-1][j-1] == player && this.board[i-2][j-2] == player && this.board[i-3][j-3] == player)
+                    return true;
+            }
+        }
+        // diagonal asc check
+        for (int i = 3; i < board.length; i++){
+            for (int j = 0; j< board[i].length - 3; j++){
+                if (this.board[i][j] == player && this.board[i-1][j+1] == player && this.board[i-2][j+2] == player && this.board[i-3][j+3] == player)
+                    return true;
+            }
+        }
+        return false;
     }
 }
