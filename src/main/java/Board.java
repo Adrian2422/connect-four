@@ -1,5 +1,3 @@
-package com.company;
-
 public class Board {
 
     public int[][] board = new int[8][9];
